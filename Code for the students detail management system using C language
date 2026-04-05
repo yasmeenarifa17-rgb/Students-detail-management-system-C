@@ -43,7 +43,7 @@ void addStudent() {
     fwrite(&s, sizeof(s), 1, fp);
     fclose(fp);
 
-    printf("\n✅ Student added successfully!\n");
+    printf("\n? Student added successfully!\n");
 }
 
 // Function to display all students
@@ -88,7 +88,7 @@ void searchStudent() {
 
     while (fread(&s, sizeof(s), 1, fp)) {
         if (strcmp(s.roll, roll) == 0) {
-            printf("\n✅ Student Found!\n");
+            printf("\n? Student Found!\n");
             printf("Name: %s\nEmail: %s\nCollege: %s\nPhone: %s\nAddress: %s\n",
                    s.name, s.email, s.college, s.phone, s.address);
             found = 1;
@@ -97,7 +97,7 @@ void searchStudent() {
     }
 
     if (!found)
-        printf("\n❌ Student not found!\n");
+        printf("\n? Student not found!\n");
 
     fclose(fp);
 }
@@ -134,9 +134,9 @@ void deleteStudent() {
     rename("temp.dat", "students.dat");
 
     if (found)
-        printf("\n✅ Student deleted successfully!\n");
+        printf("\n? Student deleted successfully!\n");
     else
-        printf("\n❌ Student not found!\n");
+        printf("\n? Student not found!\n");
 }
 
 // Function to update student details
@@ -171,17 +171,17 @@ void updateStudent() {
             printf("Enter New Address: ");
             scanf(" %[^\n]", s.address);
 
-            fseek(fp, -sizeof(s), SEEK_CUR);
+            fseek(fp, -(long)sizeof(s), SEEK_CUR);
             fwrite(&s, sizeof(s), 1, fp);
 
-            printf("\n✅ Student updated successfully!\n");
+            printf("\n? Student updated successfully!\n");
             found = 1;
             break;
         }
     }
 
     if (!found)
-        printf("\n❌ Student not found!\n");
+        printf("\n? Student not found!\n");
 
     fclose(fp);
 }
@@ -201,7 +201,7 @@ void countStudents() {
         count++;
     }
 
-    printf("\n📊 Total Students: %d\n", count);
+    printf("\n?? Total Students: %d\n", count);
 
     fclose(fp);
 }
@@ -224,6 +224,7 @@ int main() {
 
         printf("Enter your choice: ");
         scanf("%d", &choice);
+        getchar();
 
         switch (choice) {
             case 1: addStudent(); break;
